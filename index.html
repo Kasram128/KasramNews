@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KASRAM NEWS — نسخه نمایشی</title>
+<meta name="theme-color" content="#050505">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505; --card:#1B1B1D; --card-2:#232326; --line:rgba(255,255,255,.07);
+  --text:#fff; --muted:#9a9aa1; --up:#ff453a; --down:#30d158; --radius:30px;
+  --font:"Vazirmatn",Tahoma,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;min-height:100vh;overflow-x:clip;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:12px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2c2c30;border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:#3a3a40}
+.wrap{width:93%;max-width:1200px;margin-inline:auto}
+.num{font-feature-settings:"tnum";font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(5,5,5,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;direction:ltr}
+.logo svg{width:34px;height:34px;flex:none}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-text b{font-size:22px;font-weight:900;letter-spacing:.04em}
+.logo-text span{font-size:11px;font-weight:700;letter-spacing:.42em;color:var(--muted);margin-top:4px}
+.pdot{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 rgba(255,69,58,.55);animation:pulse 2s infinite;flex:none}
+.hright{display:flex;align-items:center;gap:8px;direction:ltr}
+.pill{display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:12px;font-weight:600;letter-spacing:.06em}
+.pill .blink{width:7px;height:7px;border-radius:50%;background:var(--down);animation:blink 2.4s infinite}
+.pill.demo{color:var(--muted)}
+.hclock{font-size:13px;color:var(--muted);font-weight:500}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,69,58,.55)}70%{box-shadow:0 0 0 9px rgba(255,69,58,0)}100%{box-shadow:0 0 0 0 rgba(255,69,58,0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* Hero */
+.hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;padding:34px 0 8px}
+.hero h1{font-size:clamp(34px,7vw,64px);font-weight:900;line-height:1.1;letter-spacing:.02em;direction:ltr}
+.hero h1 em{font-style:normal;color:var(--up)}
+.hero p{color:var(--muted);margin-top:8px;font-size:15px}
+.hero-meta{text-align:start;color:var(--muted);font-size:13px;display:grid;gap:2px}
+.hero-meta strong{color:var(--text);font-weight:600;font-size:15px}
+.demo-note{margin-top:14px;font-size:12px;color:var(--muted);border:1px dashed rgba(255,255,255,.14);display:inline-block;padding:4px 12px;border-radius:999px}
+
+/* Section heads */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:38px 0 16px}
+.sec-head h2{font-size:24px;font-weight:800}
+.sec-head small{color:var(--muted);font-size:13px;display:block;font-weight:400}
+.updated{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+
+/* Market */
+.market{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 18px 18px;min-height:178px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 30px rgba(0,0,0,.28);transition:transform .25s ease,border-color .25s ease,background .5s ease}
+.pcard:hover{transform:scale(1.015);border-color:rgba(255,255,255,.14)}
+.pcard.flash{background:#242427}
+.ptop{display:flex;align-items:center;gap:10px}
+.badge{width:38px;height:38px;border-radius:50%;background:#2a2a2e;display:grid;place-items:center;flex:none}
+.badge svg{width:20px;height:20px}
+.pname{font-size:14px;font-weight:600;line-height:1.3}
+.psym{font-size:11px;color:var(--muted);letter-spacing:.1em;direction:ltr;text-align:right}
+.pchg{font-size:14px;font-weight:700;margin-top:22px;display:flex;align-items:center;gap:8px;direction:ltr;justify-content:flex-end}
+.pchg.up{color:var(--up)} .pchg.down{color:var(--down)}
+.pchg small{color:var(--muted);font-weight:500;font-size:12px}
+.pval{font-size:clamp(24px,5.6vw,34px);font-weight:800;line-height:1.15;text-align:right;direction:ltr;margin-top:4px;letter-spacing:-.01em}
+.pval small{font-size:13px;color:var(--muted);font-weight:500;margin-inline-end:4px}
+.fade-in{animation:fadeIn .55s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* Ticker */
+.ticker{margin:26px 0 0;border:1px solid var(--line);background:var(--card);border-radius:999px;overflow:hidden;position:relative;direction:ltr}
+.ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none}
+.ticker::before{left:0;background:linear-gradient(90deg,var(--card),transparent)}
+.ticker::after{right:0;background:linear-gradient(-90deg,var(--card),transparent)}
+.track{display:flex;width:max-content;animation:scroll 60s linear infinite}
+.ticker:hover .track{animation-play-state:paused}
+.titem{padding:10px 26px;font-size:13px;color:#d6d6da;white-space:nowrap;display:flex;gap:8px;align-items:center;direction:rtl}
+.titem i{font-style:normal;font-weight:700}
+.titem i.up{color:var(--up)} .titem i.down{color:var(--down)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Layout */
+.main-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+.main-grid>*{min-width:0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.side{display:grid;gap:20px;align-content:start}
+
+/* Search + filters */
+.search{position:relative;margin-bottom:14px}
+.search input{width:100%;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:14px 50px 14px 20px;outline:none;transition:border-color .2s}
+.search input::placeholder{color:#6e6e75}
+.search input:focus{border-color:rgba(255,255,255,.28)}
+.search svg{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--muted)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:8px 18px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:13px;color:var(--muted);transition:all .2s}
+.chip:hover{color:#fff}
+.chip.active{background:#fff;color:#000;border-color:#fff;font-weight:700}
+.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;margin:8px 4px 14px;min-height:22px}
+.news{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.ncard{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:20px;text-align:start;display:flex;flex-direction:column;gap:10px;transition:transform .25s,border-color .25s;width:100%}
+.ncard:hover{transform:scale(1.01);border-color:rgba(255,255,255,.14)}
+.ncard.enter{animation:newsIn .45s ease both}
+@keyframes newsIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.nmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px}
+.cat{color:var(--up);font-weight:700}
+.tag{padding:2px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:11px}
+.tag.unv{color:#ffb340;border-color:rgba(255,179,64,.35)}
+.tag.ok{color:var(--down);border-color:rgba(48,209,88,.35)}
+.ncard h3{font-size:17px;font-weight:700;line-height:1.7}
+.ncard p{color:#b4b4ba;font-size:14px;line-height:1.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nfoot{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:2px;gap:8px;flex-wrap:wrap}
+.empty{padding:40px 10px;text-align:center;color:var(--muted);grid-column:1/-1}
+
+/* Today */
+.today{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.today .wd{color:var(--up);font-weight:700;font-size:14px}
+.today .fa-date{font-size:26px;font-weight:800;line-height:1.3}
+.today .g-date{color:var(--muted);font-size:13px}
+.today .clock{font-size:30px;font-weight:800;letter-spacing:.02em}
+
+/* Calendar */
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-head h3{font-size:18px;font-weight:800}
+.cal-nav{display:flex;gap:6px}
+.cal-nav button{width:36px;height:36px;border-radius:50%;background:var(--card-2);display:grid;place-items:center;transition:background .2s}
+.cal-nav button:hover{background:#2f2f33}
+.cal-nav svg{width:16px;height:16px;stroke:#fff}
+.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.dow{font-size:11px;color:var(--muted);padding:6px 0}
+.day{aspect-ratio:1;border-radius:50%;font-size:14px;display:grid;place-items:center;position:relative;transition:background .2s}
+.day:hover{background:var(--card-2)}
+.day.today-d{box-shadow:inset 0 0 0 1.5px var(--up)}
+.day.sel{background:#fff;color:#000;font-weight:700}
+.day.has::after{content:"";position:absolute;bottom:5px;width:4px;height:4px;border-radius:50%;background:var(--up)}
+.day.sel.has::after{background:#000}
+.day.fri{color:var(--up)}
+.day.sel.fri{color:#000}
+.day-events{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.day-events h4{font-size:14px;font-weight:700;margin-bottom:8px}
+.day-events ul{list-style:none;display:grid;gap:6px}
+.day-events li button{width:100%;text-align:start;font-size:13px;color:#cfcfd4;padding:8px 12px;background:var(--card-2);border-radius:16px}
+.day-events .none{font-size:13px;color:var(--muted)}
+
+/* Activity */
+.act{list-style:none;display:grid;gap:12px}
+.act li{display:flex;gap:10px;align-items:center;font-size:14px;color:#d0d0d5;opacity:.45;transition:opacity .5s}
+.act li.on{opacity:1}
+.act li .d{width:7px;height:7px;border-radius:50%;background:#555;flex:none}
+.act li.on .d{background:var(--down);animation:blink 2s infinite}
+.act-note{font-size:11px;color:var(--muted);margin-top:14px}
+.ended{display:none;margin-top:12px;font-size:12px;color:#ffb340}
+.ended.show{display:block}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex;animation:ov .25s ease}
+@keyframes ov{from{opacity:0}to{opacity:1}}
+.modal{background:var(--card);width:100%;max-height:92vh;overflow:auto;border-radius:32px 32px 0 0;padding:26px 22px 34px;border:1px solid var(--line);position:relative;animation:up .3s ease}
+@keyframes up{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.modal .x{position:absolute;top:16px;left:16px;width:38px;height:38px;border-radius:50%;background:var(--card-2);display:grid;place-items:center}
+.modal .x svg{width:16px;height:16px;stroke:#fff}
+.modal h3{font-size:22px;font-weight:800;margin:14px 40px 14px 0;line-height:1.7}
+.modal p{color:#cfcfd4;line-height:2;font-size:15px}
+.mrows{margin-top:18px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
+.mrows span b{color:#fff;font-weight:600}
+
+/* Footer */
+footer{margin-top:60px;border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:13px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+.foot b{color:#fff;letter-spacing:.06em;direction:ltr;display:inline-block}
+
+@media(min-width:640px){
+  .market{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .overlay{align-items:center}
+  .modal{max-width:640px;border-radius:32px;margin:20px}
+}
+@media(min-width:960px){
+  .market{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  .news{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .main-grid{grid-template-columns:minmax(0,1.9fr) minmax(300px,1fr);gap:26px}
+  .panel{padding:26px 24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo" aria-label="KASRAM NEWS">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="11" fill="#1B1B1D"/><path d="M11 9v16M11 17l9-8M12.5 15.2L21 25" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+      <div class="logo-text"><b>KASRAM</b><span>NEWS</span></div>
+      <span class="pdot" aria-hidden="true"></span>
+    </div>
+    <div class="hright">
+      <span class="pill demo">DEMO</span>
+      <span class="pill"><span class="blink"></span>LIVE • DEMO</span>
+      <span class="hclock num" id="hClock">--:--:--</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>KASRAM <em>NEWS</em></h1>
+      <p>آخرین اخبار، بازار و رویدادهای مهم</p>
+      <span class="demo-note">نسخه نمایشی — قیمت‌ها و بروزرسانی‌های مالی ساختگی هستند</span>
+    </div>
+    <div class="hero-meta">
+      <strong id="heroDate">—</strong>
+      <span>آخرین بررسی: <span class="num" id="heroCheck">--:--:--</span></span>
+    </div>
+  </section>
+
+  <section aria-labelledby="mk">
+    <div class="sec-head">
+      <div><h2 id="mk">بازار</h2><small>آخرین تغییرات بازار (داده‌های نمایشی)</small></div>
+      <div class="updated"><span class="pdot"></span>آخرین بروزرسانی: <span class="num" id="mkUpdated">--:--:--</span></div>
+    </div>
+    <div class="market" id="market"></div>
+  </section>
+
+  <div class="ticker" aria-label="نوار نمایشی تغییرات بازار"><div class="track" id="track"></div></div>
+
+  <div class="main-grid">
+    <section aria-labelledby="nw">
+      <div class="sec-head">
+        <div><h2 id="nw">آخرین اخبار</h2><small><span class="pdot" style="display:inline-block;margin-inline-end:6px"></span>آخرین بروزرسانی</small></div>
+        <div class="updated">بروزرسانی نمایشی: <span class="num" id="newsUpdated">--:--:--</span></div>
+      </div>
+      <div class="search">
+        <input id="q" type="search" placeholder="جستجو در KASRAM NEWS..." aria-label="جستجو در اخبار" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </div>
+      <div class="chips" id="chips" role="tablist"></div>
+      <div class="status" id="newsStatus"></div>
+      <div class="news" id="news"></div>
+    </section>
+
+    <aside class="side">
+      <div class="panel">
+        <div class="today">
+          <div>
+            <div class="wd" id="tWd">—</div>
+            <div class="fa-date" id="tFa">—</div>
+            <div class="g-date" id="tG">—</div>
+          </div>
+          <div class="clock num" id="tClock">--:--:--</div>
+        </div>
+      </div>
+
+      <div class="panel" aria-labelledby="calT">
+        <div class="sec-head" style="margin:0 0 14px"><h2 id="calT" style="font-size:20px">تقویم رویدادها</h2></div>
+        <div class="cal-head">
+          <h3 id="calTitle">—</h3>
+          <div class="cal-nav">
+            <button id="calPrev" aria-label="ماه قبل" title="ماه قبل"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            <button id="calNext" aria-label="ماه بعد" title="ماه بعد"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+          </div>
+        </div>
+        <div class="grid7" id="dow"></div>
+        <div class="grid7" id="days" style="margin-top:4px"></div>
+        <div class="day-events" id="dayEvents"></div>
+      </div>
+
+      <div class="panel" aria-labelledby="la">
+        <div class="sec-head" style="margin:0 0 16px"><h2 id="la" style="font-size:18px;letter-spacing:.08em;direction:ltr">LIVE ACTIVITY</h2></div>
+        <ul class="act" id="act"></ul>
+        <p class="act-note">این بخش صرفاً نمایشی است و داده‌ای از API دریافت نمی‌شود.</p>
+        <p class="ended" id="ended">Demo session ended</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><b>KASRAM NEWS</b><div>آخرین بروزرسانی نمایشی: <span class="num" id="fUpdated">--:--:--</span></div></div>
+    <div>© 2026 KASRAM</div>
+    <div style="direction:ltr">Demo Edition</div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal" id="modal">
+    <button class="x" id="mClose" aria-label="بستن"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="nmeta" id="mMeta"></div>
+    <h3 id="mTitle"></h3>
+    <p id="mSummary"></p>
+    <div class="mrows" id="mRows"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+const fa = n => String(n).replace(/\d/g, d => FA_DIGITS[d]);
+const pad = n => String(n).padStart(2,"0");
+const timeStr = d => pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());
+const rnd = (a,b) => Math.random()*(b-a)+a;
+const rndInt = (a,b) => Math.floor(rnd(a,b+1));
+const fmt = n => Math.round(n).toLocaleString("en-US");
+
+const FA_MONTHS = ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];
+const FA_WEEKDAYS = ["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه"];
+const G_MONTHS_FA = ["ژانویه","فوریه","مارس","آوریل","مه","ژوئن","ژوئیه","اوت","سپتامبر","اکتبر","نوامبر","دسامبر"];
+
+/* Gregorian <-> Jalali (standard arithmetic algorithm) */
+function g2j(gy,gm,gd){
+  const gdm=[0,31,59,90,120,151,181,212,243,273,304,334];
+  const gy2 = gm>2 ? gy+1 : gy;
+  let days = 355666 + 365*gy + Math.floor((gy2+3)/4) - Math.floor((gy2+99)/100) + Math.floor((gy2+399)/400) + gd + gdm[gm-1];
+  let jy = -1595 + 33*Math.floor(days/12053); days %= 12053;
+  jy += 4*Math.floor(days/1461); days %= 1461;
+  if(days>365){ jy += Math.floor((days-1)/365); days = (days-1)%365; }
+  const jm = days<186 ? 1+Math.floor(days/31) : 7+Math.floor((days-186)/30);
+  const jd = 1 + (days<186 ? days%31 : (days-186)%30);
+  return [jy,jm,jd];
+}
+function j2g(jy,jm,jd){
+  jy += 1595;
+  let days = -355668 + 365*jy + Math.floor(jy/33)*8 + Math.floor(((jy%33)+3)/4) + jd + (jm<7 ? (jm-1)*31 : ((jm-7)*30)+186);
+  let gy = 400*Math.floor(days/146097); days %= 146097;
+  if(days>36524){ gy += 100*Math.floor(--days/36524); days %= 36524; if(days>=365) days++; }
+  gy += 4*Math.floor(days/1461); days %= 1461;
+  if(days>365){ gy += Math.floor((days-1)/365); days = (days-1)%365; }
+  let gd = days+1;
+  const leap = (gy%4===0 && gy%100!==0) || gy%400===0;
+  const sal=[0,31,leap?29:28,31,30,31,30,31,31,30,31,30,31];
+  let gm; for(gm=0; gm<13 && gd>sal[gm]; gm++) gd -= sal[gm];
+  return [gy,gm,gd];
+}
+function jMonthLength(jy,jm){
+  const nj = jm===12 ? [jy+1,1] : [jy,jm+1];
+  const a = j2g(jy,jm,1), b = j2g(nj[0],nj[1],1);
+  return Math.round((Date.UTC(b[0],b[1]-1,b[2]) - Date.UTC(a[0],a[1]-1,a[2]))/86400000);
+}
+const keyOf = (jy,jm,jd) => jy+"-"+pad(jm)+"-"+pad(jd);
+
+/* ---------- Demo session (6 hours) ---------- */
+const SESSION_MS = 6*60*60*1000;
+let sessionStart = Date.now();
+try{
+  const saved = Number(localStorage.getItem("kasram_demo_start"));
+  if(saved && saved>0 && Date.now()-saved < 7*24*3600*1000) sessionStart = saved;
+  else localStorage.setItem("kasram_demo_start", String(sessionStart));
+}catch(e){}
+let sessionEnded = false;
+function checkSession(){
+  if(!sessionEnded && Date.now()-sessionStart >= SESSION_MS){
+    sessionEnded = true;
+    $("ended").classList.add("show");
+  }
+  return !sessionEnded;
+}
+
+/* ---------- Icons ---------- */
+const I = {
+  usd:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M16 8.5C16 7 14.2 6 12 6s-4 1-4 2.6c0 3.8 8 1.8 8 5.8 0 1.6-1.800 2.600-4 2.600s-4-1-4-2.600"/></svg>',
+  eur:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M17 6.500A6 6 0 1 0 17 17.500M5 10h8M5 14h8"/></svg>',
+  usdt:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M6 6h12M12 6v13M8 11.500c0 1 1.800 1.800 4 1.800s4-.8 4-1.800-1.800-1.800-4-1.800-4 .8-4 1.800z"/></svg>',
+  gold:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M3 17l3-8h12l3 8z"/><path d="M8 17l1.500-4h5L16 17"/></svg>',
+  coin:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.500"/></svg>',
+  btc:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14M9 6h5a2.500 2.500 0 0 1 0 5H9m0 0h5.500a2.500 2.500 0 0 1 0 5H9M11 3.500V5M14 3.500V5M11 19v1.500M14 19v1.500"/></svg>',
+  xau:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 6-3 11H7L4 9z"/></svg>'
+};
+
+/* ---------- Market data (DEMO) ---------- */
+const assets = [
+  {id:"usd", name:"دلار آمریکا", sym:"USD", price:269900, step:[50,200], icon:I.usd, unit:"تومان"},
+  {id:"eur", name:"یورو", sym:"EUR", price:303850, step:[50,220], icon:I.eur, unit:"تومان"},
+  {id:"usdt",name:"تتر", sym:"USDT", price:268500, step:[50,180], icon:I.usdt, unit:"تومان"},
+  {id:"mit", name:"مثقال طلا", sym:"MITHQAL", price:115850000, step:[20000,120000], icon:I.gold, unit:"تومان"},
+  {id:"g18", name:"طلای ۱۸ عیار", sym:"GOLD 18K", price:24900000, step:[5000,30000], icon:I.gold, unit:"تومان"},
+  {id:"coin",name:"سکه", sym:"COIN", price:285000000, step:[50000,250000], icon:I.coin, unit:"تومان"},
+  {id:"btc", name:"بیت‌کوین", sym:"BTC", price:108500, step:[20,150], icon:I.btc, unit:"$"},
+  {id:"xau", name:"انس طلا", sym:"XAU", price:4150, step:[1,8], icon:I.xau, unit:"$"}
+];
+const initial = {};
+assets.forEach(a=>{ a.base=a.price; a.change=({usd:600,eur:-450,usdt:300,mit:-120000,g18:80000,coin:500000,btc:300,xau:-12})[a.id]; a.dir=a.change>=0?"up":"down"; initial[a.id]=a.price; });
+
+function cardHTML(a){
+  const arrow = a.dir==="up" ? "↑" : "↓";
+  const sign = a.change>=0 ? "+" : "-";
+  const pct = (Math.abs(a.change)/(a.price-a.change)*100).toFixed(2);
+  const unit = a.unit==="$" ? '<small>$</small>' : '';
+  return `
+  <div class="ptop"><div class="badge">${a.icon}</div><div><div class="pname">${a.name}</div><div class="psym">${a.sym}</div></div></div>
+  <div>
+    <div class="pchg ${a.dir}"><span>${arrow} ${sign}${fmt(Math.abs(a.change))}</span><small>${sign}${pct}%</small></div>
+    <div class="pval num">${unit}${fmt(a.price)}</div>
+  </div>`;
+}
+function renderMarket(){
+  const root = $("market"); root.innerHTML="";
+  assets.forEach(a=>{
+    const el = document.createElement("article");
+    el.className="pcard"; el.id="card-"+a.id; el.innerHTML=cardHTML(a);
+    root.appendChild(el);
+  });
+}
+function updateCard(a, isMain){
+  const el = $("card-"+a.id); if(!el) return;
+  // controlled, small step; keep within ±1.2% of base
+  const [lo,hi] = a.step;
+  let delta = rndInt(lo,hi) * (Math.random()<.5?-1:1);
+  if(Math.abs(a.price+delta-a.base)/a.base > 0.012) delta = -Math.sign(a.price-a.base)*Math.abs(delta);
+  if(a.price>=1000000) delta = Math.round(delta/1000)*1000;
+  else if(a.price>=10000) delta = Math.round(delta/5)*5;
+  if(delta===0) delta = lo;
+  a.price += delta; a.change = delta; a.dir = delta>0 ? "up":"down";
+  const val = el.querySelector(".pval");
+  val.style.transition="opacity .22s"; val.style.opacity="0";
+  setTimeout(()=>{
+    el.innerHTML = cardHTML(a);
+    const nv = el.querySelector(".pval"); nv.classList.add("fade-in");
+    el.querySelector(".pchg").classList.add("fade-in");
+  },220);
+  el.classList.add("flash");
+  setTimeout(()=>el.classList.remove("flash"), rndInt(400,700));
+  stampMarket(); renderTicker();
+}
+function stampMarket(){
+  const t = timeStr(new Date());
+  $("mkUpdated").textContent = t; $("fUpdated").textContent = t;
+}
+function scheduleMain(){
+  setTimeout(()=>{ if(checkSession()){ updateCard(assets[rndInt(0,assets.length-1)],true); scheduleMain(); } }, rndInt(5000,9000));
+}
+function scheduleSecondary(){
+  setTimeout(()=>{ if(checkSession()){ updateCard(assets[rndInt(0,assets.length-1)],false); scheduleSecondary(); } }, rndInt(15000,25000));
+}
+
+/* ---------- Ticker ---------- */
+function renderTicker(){
+  const names = {usd:"دلار",eur:"یورو",usdt:"تتر",mit:"مثقال",g18:"طلای ۱۸",coin:"سکه",btc:"بیت‌کوین",xau:"انس طلا"};
+  const html = assets.map(a=>`<span class="titem">${names[a.id]} <i class="${a.dir}">${a.dir==="up"?"↑":"↓"}</i></span>`).join("");
+  $("track").innerHTML = html + html;
+}
+
+/* ---------- News data ---------- */
+const TODAY_KEY = "2026-10-06";
+const news = [
+ {id:1, cats:["ایران","جهان"], label:"ایران / سیاست", title:"گزارش درباره فهرستی از مقام‌های ایرانی برای جلوگیری از ترور",
+  summary:"به نقل از خبرنگاری در وال‌استریت ژورنال، ادعا شده فهرستی از چند مقام ایرانی در اختیار اسرائیل قرار گرفته که هدف قرار نگرفتن آنها در نظر گرفته شده است. این گزارش به احتمال نقش این افراد در آینده سیاسی ایران اشاره دارد.",
+  source:"به نقل از وال‌استریت ژورنال", status:"unverified", tag:"تأییدنشده"},
+ {id:2, cats:["جامعه","ایران"], label:"جامعه", title:"گزارش هه‌نگاو درباره یک حادثه خانوادگی در کرمانشاه",
+  summary:"هه‌نگاو گزارشی درباره یک حادثه خانوادگی در کرمانشاه منتشر کرده که در جریان آن چند عضو یک خانواده جان خود را از دست داده‌اند. جزئیات این گزارش نیازمند بررسی مستقل است.",
+  source:"هه‌نگاو", status:"unverified", tag:"نیازمند بررسی مستقل"},
+ {id:3, cats:["جهان"], label:"جهان", title:"تصاویر منتشرشده از هدف قرار گرفتن پلی در شمال کی‌یف",
+  summary:"تصاویری از آسیب‌دیدن یک پل در شمال کی‌یف در جریان جنگ روسیه و اوکراین منتشر شده است.",
+  source:"تصاویر منتشرشده", status:"unverified", tag:"تأییدنشده"},
+ {id:4, cats:["فناوری"], label:"فناوری", title:"ادعای هک سامانه‌های فلای‌دبی",
+  summary:"گروه هکری Everest مدعی شده سامانه‌های فلای‌دبی را هدف قرار داده و حجم قابل توجهی اطلاعات استخراج کرده است. این ادعا نیازمند تأیید مستقل است.",
+  source:"ادعای گروه Everest", status:"unverified", tag:"نیازمند تأیید"},
+ {id:5, cats:["جهان"], label:"جهان", title:"تکذیب گزارش سقوط بالگرد آمریکایی در دریای سرخ",
+  summary:"فرماندهی مرکزی آمریکا گزارش‌های منتشرشده درباره سقوط یک فروند بالگرد MH-60R در دریای سرخ را رد کرده و اعلام کرده نیروها و هواگردهای آمریکایی در منطقه در سلامت هستند.",
+  source:"فرماندهی مرکزی آمریکا", status:"official", tag:"اعلام رسمی"},
+ {id:6, cats:["اقتصاد"], label:"اقتصاد", title:"دلار دوباره در محدوده ۲۷۰ هزار تومان",
+  summary:"در داده‌های نمایشی این نسخه، نرخ دلار در محدوده ۲۷۰ هزار تومان قرار گرفته است.",
+  source:"داده‌های نمایشی KASRAM", status:"demo", tag:"DEMO MARKET DATA"},
+ {id:7, cats:["اقتصاد","ایران"], label:"اقتصاد", title:"اجرای افزایش رقم کالابرگ",
+  summary:"معاون اول رئیس‌جمهور اعلام کرده افزایش رقم کالابرگ در روزهای پیش رو اجرایی خواهد شد.",
+  source:"اظهارات معاون اول رئیس‌جمهور", status:"official", tag:"اظهارات مقام رسمی"},
+ {id:8, cats:["ایران","جهان"], label:"ایران / سیاست", title:"احضار سفیر فرانسه در تهران",
+  summary:"وزارت امور خارجه ایران اعلام کرده سفیر فرانسه در تهران را احضار کرده است. موضوع این اقدام، مواضع فرانسه درباره اعتراضات و مسائل حقوق بشری عنوان شده است.",
+  source:"وزارت امور خارجه ایران", status:"official", tag:"اعلام رسمی"},
+ {id:9, cats:["جهان"], label:"جهان", title:"اظهارات ترامپ درباره اعتراضات فرانسه",
+  summary:"دونالد ترامپ درباره تحولات و اعتراضات فرانسه اظهارنظر کرده و آنها را به مهاجرت و مسائل مربوط به اسلام مرتبط دانسته است.",
+  source:"اظهارات دونالد ترامپ", status:"statement", tag:"اظهارنظر سیاسی"},
+ {id:10,cats:["ورزش"], label:"ورزش", title:"گزارش‌هایی درباره وضعیت رونالدو در تیم ملی پرتغال",
+  summary:"پیرس مورگان درباره شرایط کریستیانو رونالدو در تیم ملی پرتغال اظهاراتی مطرح کرده و گفته است اختلاف اصلی به نحوه برخورد و پایبندی به توافق‌های قبلی مربوط بوده است.",
+  source:"اظهارات پیرس مورگان", status:"statement", tag:"اظهارنظر"},
+ {id:11,cats:["جهان"], label:"جهان / سیاست", title:"نتانیاهو درباره احتمال مداخله حماس در انتخابات اظهارنظر کرد",
+  summary:"بنیامین نتانیاهو مدعی شده حماس ممکن است تلاش کند بر روند انتخابات تأثیر بگذارد و گفته است اسرائیل با چنین اقداماتی مقابله خواهد کرد.",
+  source:"اظهارات بنیامین نتانیاهو", status:"unverified", tag:"ادعای مقام اسرائیلی"},
+ {id:12,cats:["جامعه","ایران"], label:"جامعه / حقوق", title:"صدور حکم اعدام برای یک متهم در خراسان شمالی",
+  summary:"بر اساس گزارش منتشرشده، فردی ۳۸ ساله در شیروان از سوی دادگاه انقلاب بجنورد به اعدام محکوم شده است.",
+  source:"گزارش رسانه‌ای", status:"statement", tag:"گزارش رسانه‌ای"},
+ {id:13,cats:["ایران"], label:"ایران / سیاست", title:"تغییر سمت پاک‌نژاد پس از استعفا از وزارت نفت",
+  summary:"پس از استعفای پاک‌نژاد از وزارت نفت، گزارش‌هایی درباره انتخاب او به عنوان مشاور رئیس‌جمهور منتشر شده است.",
+  source:"گزارش رسانه‌ای", status:"statement", tag:"گزارش رسانه‌ای"},
+ {id:14,cats:["سلامت","جهان"], label:"سلامت", title:"گزارش درباره دومین مورد مرگ مرتبط با طاعون در روسیه",
+  summary:"رسانه‌هایی در منطقه درباره ثبت دومین مورد مرگ مرتبط با طاعون در روسیه گزارش داده‌اند. اطلاعات این خبر باید از منابع رسمی پزشکی بررسی شود.",
+  source:"رسانه‌های منطقه", status:"unverified", tag:"نیازمند تأیید"},
+ {id:15,cats:["ورزش"], label:"ورزش", title:"اظهارات منتشرشده منتسب به لیونل مسی",
+  summary:"متنی در شبکه‌های اجتماعی به لیونل مسی نسبت داده شده که در آن درباره دوران حضور او در تیم ملی آرژانتین صحبت شده است.",
+  source:"شبکه‌های اجتماعی", status:"unverified", tag:"نقل‌قول منتشرشده در شبکه‌های اجتماعی"},
+ {id:16,cats:["سلامت","جهان"], label:"سلامت", title:"گزارش‌هایی درباره وضعیت قرنطینه مرتبط با طاعون",
+  summary:"برخی کانال‌ها درباره کاهش محدودیت‌های قرنطینه و خروج بخشی از افراد خبر داده‌اند. جزئیات این ادعا باید از منابع رسمی بررسی شود.",
+  source:"کانال‌های خبری", status:"unverified", tag:"تأییدنشده"},
+ {id:17,cats:["جهان"], label:"جهان", title:"اظهارات وزیر دفاع اسرائیل درباره حمله ۷ اکتبر",
+  summary:"اسرائیل کاتز درباره شمار مهاجمان و وضعیت افراد باقی‌مانده از حمله ۷ اکتبر اظهاراتی مطرح کرده است.",
+  source:"اظهارات اسرائیل کاتز", status:"statement", tag:"اظهارات مقام اسرائیلی"},
+ {id:18,cats:["ایران","جامعه"], label:"ایران / جامعه", title:"گزارش درباره مدرسه‌ای در میناب",
+  summary:"در شبکه‌های اجتماعی ادعاهایی درباره مالکیت و ارتباط یک مدرسه در میناب با نهادهای نظامی منتشر شده است. این ادعاها هنوز بررسی نشده‌اند.",
+  source:"شبکه‌های اجتماعی", status:"unverified", tag:"نیازمند بررسی"},
+ {id:19,cats:["اقتصاد","جهان"], label:"اقتصاد", title:"بازارهای جهانی در محدوده مثبت قرار گرفتند",
+  summary:"بر اساس گزارش رویترز در ۶ اکتبر ۲۰۲۶، شاخص‌های سهام جهانی رشد کردند و کاهش قیمت نفت و بازده اوراق قرضه به بهبود احساسات بازار کمک کرد.",
+  source:"Reuters", date:"۶ اکتبر ۲۰۲۶", dateKey:TODAY_KEY, status:"official", tag:"گزارش رویترز"}
+];
+const statusCls = s => s==="unverified" ? "unv" : (s==="official" ? "ok" : "");
+const statusTxt = s => ({unverified:"تأییدنشده", official:"منبع رسمی / معتبر", statement:"اظهارنظر / گزارش رسانه‌ای", demo:"داده نمایشی"})[s];
+
+let order = news.map(n=>n.id);        // display order (UI only)
+let activeCat = "همه";
+let query = "";
+const CATS = ["همه","ایران","جهان","اقتصاد","فناوری","ورزش","جامعه","سلامت"];
+
+function buildChips(){
+  const root = $("chips");
+  CATS.forEach(c=>{
+    const b = document.createElement("button");
+    b.className="chip"+(c===activeCat?" active":""); b.textContent=c; b.setAttribute("role","tab");
+    b.onclick=()=>{ activeCat=c; [...root.children].forEach(x=>x.classList.toggle("active",x===b)); renderNews(false); };
+    root.appendChild(b);
+  });
+}
+function norm(s){ return (s||"").replace(/[يى]/g,"ی").replace(/ك/g,"ک").replace(/[\u064B-\u065F\u200c]/g,"").toLowerCase(); }
+function matches(n){
+  if(activeCat!=="همه" && !n.cats.includes(activeCat)) return false;
+  if(!query) return true;
+  const q = norm(query);
+  return norm(n.title).includes(q) || norm(n.summary).includes(q) || norm(n.label).includes(q) || n.cats.some(c=>norm(c).includes(q));
+}
+function renderNews(animateTop){
+  const root = $("news"); root.innerHTML="";
+  const list = order.map(id=>news.find(n=>n.id===id)).filter(matches);
+  if(!list.length){ root.innerHTML='<div class="empty">خبری با این فیلتر یا جستجو پیدا نشد.</div>'; return; }
+  list.forEach((n,i)=>{
+    const b = document.createElement("button");
+    b.className="ncard"+(animateTop && i===0 ? " enter":""); b.type="button";
+    const dateTxt = n.date || "تاریخ انتشار اعلام‌نشده";
+    b.innerHTML = `
+      <div class="nmeta"><span class="cat">${n.label}</span><span class="tag ${statusCls(n.status)}">${n.tag}</span></div>
+      <h3>${n.title}</h3><p>${n.summary}</p>
+      <div class="nfoot"><span>منبع: ${n.source}</span><span>${dateTxt}</span></div>`;
+    b.onclick=()=>openModal(n);
+    root.appendChild(b);
+  });
+}
+function setStatus(msg){ $("newsStatus").innerHTML = msg ? '<span class="pdot"></span>'+msg : ""; }
+function stampNews(){ const t=timeStr(new Date()); $("newsUpdated").textContent=t; $("fUpdated").textContent=t; }
+
+/* Visual-only news cycle: reorders UI, never invents items or times */
+function newsCycle(){
+  setTimeout(()=>{
+    if(!checkSession()) return;
+    setStatus("در حال بررسی آخرین اخبار...");
+    setTimeout(()=>{
+      if(!sessionEnded && !query && activeCat==="همه"){
+        const pick = order[rndInt(1,order.length-1)];
+        order = [pick].concat(order.filter(id=>id!==pick));
+        renderNews(true);
+      }
+      stampNews();
+      setStatus(fa(news.length)+" خبر بررسی شد — آخرین بروزرسانی نمایشی: "+timeStr(new Date()));
+      setTimeout(()=>setStatus(""), 4500);
+    },1300);
+    newsCycle();
+  }, rndInt(7000,12000));
+}
+
+$("q").addEventListener("input",e=>{ query=e.target.value.trim(); renderNews(false); });
+
+/* ---------- Modal ---------- */
+let lastFocus=null;
+function openModal(n){
+  lastFocus=document.activeElement;
+  $("mMeta").innerHTML = `<span class="cat">${n.label}</span><span class="tag ${statusCls(n.status)}">${n.tag}</span>`;
+  $("mTitle").textContent=n.title;
+  $("mSummary").textContent=n.summary;
+  $("mRows").innerHTML = `<span>منبع: <b>${n.source}</b></span><span>تاریخ: <b>${n.date||"تاریخ انتشار اعلام‌نشده"}</b></span><span>وضعیت: <b>${statusTxt(n.status)}</b></span><span>${n.status==="unverified"?"این مطلب تأیید مستقل نشده است؛ پیش از اتکا به آن، منابع رسمی را بررسی کنید.":"متن در این نسخه نمایشی خلاصه و پاک‌سازی شده است."}</span>`;
+  $("overlay").classList.add("open"); $("mClose").focus();
+  document.body.style.overflow="hidden";
+}
+function closeModal(){ $("overlay").classList.remove("open"); document.body.style.overflow=""; if(lastFocus) lastFocus.focus(); }
+$("mClose").onclick=closeModal;
+$("overlay").addEventListener("click",e=>{ if(e.target===$("overlay")) closeModal(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+
+/* ---------- Clock & dates ---------- */
+function tick(){
+  const d = new Date(), t = timeStr(d);
+  $("hClock").textContent=t; $("tClock").textContent=t;
+  $("heroCheck").textContent=t;
+  const [jy,jm,jd] = g2j(d.getFullYear(), d.getMonth()+1, d.getDate());
+  const wd = FA_WEEKDAYS[(d.getDay()+1)%7];
+  $("tWd").textContent=wd;
+  $("tFa").textContent = fa(jd)+" "+FA_MONTHS[jm-1]+" "+fa(jy);
+  $("tG").textContent = fa(d.getDate())+" "+G_MONTHS_FA[d.getMonth()]+" "+fa(d.getFullYear());
+  $("heroDate").textContent = wd+" "+fa(d.getDate())+" "+G_MONTHS_FA[d.getMonth()]+" "+fa(d.getFullYear());
+}
+
+/* ---------- Calendar ---------- */
+const now0 = new Date();
+const [TJY,TJM,TJD] = g2j(now0.getFullYear(), now0.getMonth()+1, now0.getDate());
+let cy=TJY, cm=TJM, selKey = keyOf(TJY,TJM,TJD);
+
+// Items archived by this demo are listed under the day they were added (the real "today" key).
+function eventsFor(key){
+  const real = g2j(2026,10,6);
+  const todayArchiveKey = keyOf(real[0],real[1],real[2]);
+  if(key===todayArchiveKey) return news;
+  return [];
+}
+function renderCalendar(){
+  $("calTitle").textContent = FA_MONTHS[cm-1]+" "+fa(cy);
+  const dow = $("dow"); dow.innerHTML="";
+  ["ش","ی","د","س","چ","پ","ج"].forEach(x=>{ const s=document.createElement("div"); s.className="dow"; s.textContent=x; dow.appendChild(s); });
+  const days = $("days"); days.innerHTML="";
+  const g = j2g(cy,cm,1);
+  const offset = (new Date(g[0],g[1]-1,g[2]).getDay()+1)%7;
+  for(let i=0;i<offset;i++) days.appendChild(document.createElement("div"));
+  const len = jMonthLength(cy,cm);
+  for(let d=1; d<=len; d++){
+    const key = keyOf(cy,cm,d);
+    const b = document.createElement("button");
+    b.type="button"; b.textContent=fa(d); b.className="day";
+    if((offset+d-1)%7===6) b.classList.add("fri");
+    if(cy===TJY&&cm===TJM&&d===TJD) b.classList.add("today-d");
+    if(eventsFor(key).length) b.classList.add("has");
+    if(key===selKey) b.classList.add("sel");
+    b.onclick=()=>{ selKey=key; renderCalendar(); };
+    days.appendChild(b);
+  }
+  renderDayEvents();
+}
+function renderDayEvents(){
+  const [y,m,d] = selKey.split("-").map(Number);
+  const box = $("dayEvents");
+  const ev = eventsFor(selKey);
+  box.innerHTML = `<h4>اخبار و رویدادهای این روز — ${fa(d)} ${FA_MONTHS[m-1]} ${fa(y)}</h4>`;
+  if(!ev.length){ box.innerHTML += '<p class="none">برای این روز رویدادی ثبت نشده است.</p>'; return; }
+  const ul = document.createElement("ul");
+  ev.slice(0,6).forEach(n=>{
+    const li=document.createElement("li"); const b=document.createElement("button"); b.type="button"; b.textContent=n.title; b.onclick=()=>openModal(n);
+    li.appendChild(b); ul.appendChild(li);
+  });
+  box.appendChild(ul);
+  if(ev.length>6){ const p=document.createElement("p"); p.className="none"; p.style.marginTop="8px"; p.textContent="و "+fa(ev.length-6)+" خبر دیگر در لیست اخبار"; box.appendChild(p); }
+}
+$("calPrev").onclick=()=>{ cm--; if(cm<1){cm=12;cy--;} renderCalendar(); };
+$("calNext").onclick=()=>{ cm++; if(cm>12){cm=1;cy++;} renderCalendar(); };
+
+/* ---------- Live activity (rotating, demo only) ---------- */
+let actIdx=0;
+function renderActivity(){
+  const items = [
+    "بازار بررسی شد",
+    "فهرست اخبار بروزرسانی شد",
+    fa(news.length)+" خبر در آرشیو موجود است",
+    "آخرین بررسی: "+timeStr(new Date())
+  ];
+  const ul=$("act"); ul.innerHTML="";
+  items.forEach((t,i)=>{ const li=document.createElement("li"); if(i===actIdx) li.className="on"; li.innerHTML='<span class="d"></span><span class="'+(i===3?"num":"")+'">'+t+'</span>'; ul.appendChild(li); });
+}
+setInterval(()=>{ if(checkSession()){ actIdx=(actIdx+1)%4; renderActivity(); } }, 3500);
+
+/* ---------- Init ---------- */
+renderMarket(); renderTicker(); stampMarket(); stampNews();
+buildChips(); renderNews(false);
+renderCalendar(); renderActivity(); tick();
+setInterval(tick,1000);
+setInterval(checkSession,30000);
+checkSession();
+scheduleMain(); scheduleSecondary(); newsCycle();
+})();
+</script>
+</body>
+</html>
